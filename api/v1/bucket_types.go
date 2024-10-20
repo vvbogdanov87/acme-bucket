@@ -28,18 +28,23 @@ type BucketSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Bucket. Edit bucket_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Region string `json:"region,omitempty"`
 }
 
 // BucketStatus defines the observed state of Bucket
 type BucketStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	Arn string `json:"arn,omitempty"`
+
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="Arn",type=string,JSONPath=`.status.arn`
+// +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type == 'Ready')].status`
 
 // Bucket is the Schema for the buckets API
 type Bucket struct {

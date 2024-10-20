@@ -4,6 +4,6 @@ metadata:
   labels:
     app.kubernetes.io/name: acme-bucket
     app.kubernetes.io/managed-by: kustomize
-  name: bucket-sample
+  name: acme-test-bucket-123
 spec:
-  # TODO(user): Add fields here
+  region: us-west-2
