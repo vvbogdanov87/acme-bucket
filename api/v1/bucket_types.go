@@ -17,6 +17,8 @@ limitations under the License.
 package v1
 
 import (
+	"github.com/pulumi/pulumi/sdk/v3/go/auto"
+	"github.com/vvbogdanov87/acme-common/pkg/controller"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -66,4 +68,15 @@ type BucketList struct {
 
 func init() {
 	SchemeBuilder.Register(&Bucket{}, &BucketList{})
+}
+
+// Ensure the implementation satisfies the interfaces
+var _ controller.Obj = &Bucket{}
+
+func (b *Bucket) GetStatusConditions() *[]metav1.Condition {
+	return &b.Status.Conditions
+}
+
+func (b *Bucket) SetStatus(output auto.OutputMap) {
+	b.Status.Arn = output["arn"].Value.(string)
 }

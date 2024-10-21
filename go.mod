@@ -1,13 +1,14 @@
 module github.com/vvbogdanov87/acme-bucket
 
-go 1.22.0
+go 1.23.2
 
 require (
 	github.com/onsi/ginkgo/v2 v2.19.0
 	github.com/onsi/gomega v1.33.1
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.56.1
 	github.com/pulumi/pulumi/sdk/v3 v3.137.0
-	k8s.io/apimachinery v0.31.0
+	github.com/vvbogdanov87/acme-common v0.1.0
+	k8s.io/apimachinery v0.31.1
 	k8s.io/client-go v0.31.0
 	sigs.k8s.io/controller-runtime v0.19.0
 )
