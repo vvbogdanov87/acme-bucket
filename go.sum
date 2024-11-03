@@ -282,8 +282,8 @@ github.com/uber/jaeger-client-go v2.30.0+incompatible h1:D6wyKGCecFaSRUpo8lCVbaO
 github.com/uber/jaeger-client-go v2.30.0+incompatible/go.mod h1:WVhlPFC8FDjOFMMWRy2pZqQJSXxYSwNYOkTr/Z6d3Kk=
 github.com/uber/jaeger-lib v2.4.1+incompatible h1:td4jdvLcExb4cBISKIpHuGoVXh+dVKhn2Um6rjCsSsg=
 github.com/uber/jaeger-lib v2.4.1+incompatible/go.mod h1:ComeNDZlWwrWnDv8aPp0Ba6+uUTzImX/AauajbLI56U=
-github.com/vvbogdanov87/acme-common v0.1.0 h1:frolAQYKVpIzdZ+IohyhC94bZgxaETxL9uQ0eGyAsjQ=
-github.com/vvbogdanov87/acme-common v0.1.0/go.mod h1:3JlwiOQ6M6GVqq6JSTFyXidpGYiofcMIcNl26knYPt0=
+github.com/vvbogdanov87/acme-common v0.2.0 h1:KFmNJejAImnBHYnDePc/hZ4BNAGzp9xI3EeIx0YWXxM=
+github.com/vvbogdanov87/acme-common v0.2.0/go.mod h1:3JlwiOQ6M6GVqq6JSTFyXidpGYiofcMIcNl26knYPt0=
 github.com/x448/float16 v0.8.4 h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=
 github.com/x448/float16 v0.8.4/go.mod h1:14CWIYCyZA/cWjXOioeEpHeN/83MdbZDRQHoFcYsOfg=
 github.com/xanzy/ssh-agent v0.3.3 h1:+/15pJfg/RsTxqYcX6fHqOXZwwMP+2VyYWJeWM2qQFM=

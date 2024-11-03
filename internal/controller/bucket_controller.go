@@ -19,8 +19,6 @@ package controller
 import (
 	"context"
 
-	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/s3"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -46,9 +44,7 @@ type BucketReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.0/pkg/reconcile
 func (r *BucketReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	program := createPulumiProgram(req.Name, req.Namespace)
-
-	return controller.Reconcile(ctx, &apiv1.Bucket{}, req, r.Client, program)
+	return controller.Reconcile(ctx, &apiv1.Bucket{}, req, r.Client)
 }
 
 // SetupWithManager sets up the controller with the Manager.
@@ -56,49 +52,4 @@ func (r *BucketReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&cloudv1.Bucket{}).
 		Complete(r)
-}
-
-// createPulumiProgram defines the program that creates pulumi resources.
-func createPulumiProgram(name, namespace string) pulumi.RunFunc {
-	return func(ctx *pulumi.Context) error {
-		bucket, err := s3.NewBucketV2(ctx, "bucket", &s3.BucketV2Args{
-			Bucket: pulumi.String(name),
-			Tags: pulumi.StringMap{
-				"Name":        pulumi.String(name),
-				"Environment": pulumi.String(namespace),
-			},
-		})
-		if err != nil {
-			return err
-		}
-
-		_, err = s3.NewBucketPublicAccessBlock(ctx, "bucket_pub_access", &s3.BucketPublicAccessBlockArgs{
-			Bucket:                bucket.ID(),
-			BlockPublicAcls:       pulumi.Bool(true),
-			BlockPublicPolicy:     pulumi.Bool(true),
-			IgnorePublicAcls:      pulumi.Bool(true),
-			RestrictPublicBuckets: pulumi.Bool(true),
-		})
-		if err != nil {
-			return err
-		}
-
-		_, err = s3.NewBucketServerSideEncryptionConfigurationV2(ctx, "bucket_sse_config", &s3.BucketServerSideEncryptionConfigurationV2Args{
-			Bucket: bucket.ID(),
-			Rules: s3.BucketServerSideEncryptionConfigurationV2RuleArray{
-				&s3.BucketServerSideEncryptionConfigurationV2RuleArgs{
-					ApplyServerSideEncryptionByDefault: &s3.BucketServerSideEncryptionConfigurationV2RuleApplyServerSideEncryptionByDefaultArgs{
-						SseAlgorithm: pulumi.String("aws:kms"),
-					},
-				},
-			},
-		})
-		if err != nil {
-			return err
-		}
-
-		// export the bucket ARN
-		ctx.Export("arn", bucket.Arn)
-		return nil
-	}
 }
