@@ -7,13 +7,13 @@ require (
 	github.com/onsi/gomega v1.33.1
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.56.1
 	github.com/pulumi/pulumi/sdk/v3 v3.137.0
-	github.com/vvbogdanov87/acme-common v0.3.0
+	github.com/vvbogdanov87/acme-common v0.3.1
 	k8s.io/apimachinery v0.31.1
 	k8s.io/client-go v0.31.0
 	sigs.k8s.io/controller-runtime v0.19.0
 )
 
-// replace github.com/vvbogdanov87/acme-common v0.2.0 => /home/viktor/work/github/vvbogdanov87/acme-common
+// replace github.com/vvbogdanov87/acme-common v0.3.1 => /home/viktor/work/github/vvbogdanov87/acme-common
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
