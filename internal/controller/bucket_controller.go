@@ -26,6 +26,7 @@ import (
 	apiv1 "github.com/vvbogdanov87/acme-bucket/api/v1"
 	cloudv1 "github.com/vvbogdanov87/acme-bucket/api/v1"
 	"github.com/vvbogdanov87/acme-common/pkg/controller"
+	"sigs.k8s.io/controller-runtime/pkg/predicate"
 )
 
 // BucketReconciler reconciles a Bucket object
@@ -51,5 +52,7 @@ func (r *BucketReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 func (r *BucketReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&cloudv1.Bucket{}).
+		// Avoid requeue of events triggered by status updates
+		WithEventFilter(predicate.GenerationChangedPredicate{}).
 		Complete(r)
 }
